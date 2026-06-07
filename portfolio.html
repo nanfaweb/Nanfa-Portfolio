@@ -1,0 +1,1182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Portfolio — [Your Name]</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet" />
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --black: #0a0a0a;
+    --carbon: #111111;
+    --panel: #161616;
+    --border: rgba(255,255,255,0.08);
+    --border-strong: rgba(255,255,255,0.14);
+    --red: #c0392b;
+    --red-dim: rgba(192,57,43,0.18);
+    --off-white: #e8e4dc;
+    --muted: #888880;
+    --mono-dim: #5a5a52;
+    --font-display: 'Bebas Neue', sans-serif;
+    --font-mono: 'DM Mono', monospace;
+    --font-body: 'Lora', serif;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--black);
+    color: var(--off-white);
+    font-family: var(--font-body);
+    line-height: 1.7;
+    overflow-x: hidden;
+    cursor: crosshair;
+  }
+
+  a { color: inherit; text-decoration: none; }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.2rem 3rem;
+    background: rgba(10,10,10,0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-logo {
+    font-family: var(--font-display);
+    font-size: 1.4rem;
+    letter-spacing: 0.12em;
+    color: var(--off-white);
+  }
+
+  .nav-logo span { color: var(--red); }
+
+  .nav-links {
+    display: flex;
+    gap: 2.4rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--muted);
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--off-white); }
+
+  /* ── THIN RED LINE ── */
+  .redline {
+    display: block;
+    width: 2.5rem;
+    height: 2px;
+    background: var(--red);
+    margin-bottom: 1.2rem;
+  }
+
+  /* ── HERO ── */
+  #hero {
+    position: relative;
+    height: 100vh;
+    min-height: 640px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 0 3rem 4rem;
+    overflow: hidden;
+  }
+
+  #canvas-wrap {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+  }
+
+  #three-canvas {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+
+  .hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(10,10,10,1) 0%, rgba(10,10,10,0.35) 55%, rgba(10,10,10,0.1) 100%);
+    z-index: 1;
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 700px;
+  }
+
+  .hero-eyebrow {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 0.6rem;
+  }
+
+  .hero-name {
+    font-family: var(--font-display);
+    font-size: clamp(4rem, 9vw, 8rem);
+    line-height: 0.9;
+    letter-spacing: 0.04em;
+    color: var(--off-white);
+    margin-bottom: 1.4rem;
+  }
+
+  .hero-tagline {
+    font-family: var(--font-body);
+    font-size: 1.05rem;
+    color: var(--muted);
+    max-width: 480px;
+    line-height: 1.8;
+    margin-bottom: 2rem;
+  }
+
+  .hero-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.7rem;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--off-white);
+    border: 1px solid var(--border-strong);
+    padding: 0.75rem 1.6rem;
+    transition: border-color 0.2s, background 0.2s;
+  }
+
+  .hero-cta:hover {
+    border-color: var(--red);
+    background: var(--red-dim);
+  }
+
+  .hero-cta-ghost {
+    border-color: var(--border);
+    color: var(--muted);
+  }
+
+  .hero-cta-ghost:hover {
+    border-color: var(--border-strong);
+    background: rgba(255,255,255,0.04);
+    color: var(--off-white);
+  }
+
+  .hero-cta-arrow { font-size: 0.8rem; }
+
+  .hero-specs {
+    position: absolute;
+    right: 3rem;
+    bottom: 4rem;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    text-align: right;
+  }
+
+  .spec-item {}
+
+  .spec-label {
+    font-family: var(--font-mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--mono-dim);
+    display: block;
+  }
+
+  .spec-value {
+    font-family: var(--font-display);
+    font-size: 1.6rem;
+    letter-spacing: 0.06em;
+    color: var(--off-white);
+    line-height: 1;
+  }
+
+  /* ── SECTION BASE ── */
+  section {
+    padding: 6rem 3rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .section-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 2.5rem;
+    margin-bottom: 4rem;
+  }
+
+  .section-number {
+    font-family: var(--font-mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    color: var(--mono-dim);
+    padding-top: 0.3rem;
+    white-space: nowrap;
+  }
+
+  .section-title {
+    font-family: var(--font-display);
+    font-size: clamp(2.5rem, 5vw, 4.5rem);
+    letter-spacing: 0.05em;
+    color: var(--off-white);
+    line-height: 1;
+  }
+
+  .full-bleed-divider {
+    width: 100%;
+    height: 1px;
+    background: var(--border);
+    margin: 0;
+  }
+
+  /* ── ABOUT ── */
+  #about .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    align-items: start;
+  }
+
+  .about-bio {
+    font-size: 1rem;
+    line-height: 1.85;
+    color: #b8b4ac;
+  }
+
+  .about-bio p + p { margin-top: 1.2rem; }
+
+  .about-sidebar {}
+
+  .stat-block {
+    border-left: 1px solid var(--border-strong);
+    padding-left: 1.4rem;
+    margin-bottom: 2rem;
+  }
+
+  .stat-block:last-child { margin-bottom: 0; }
+
+  .stat-num {
+    font-family: var(--font-display);
+    font-size: 3rem;
+    letter-spacing: 0.04em;
+    line-height: 1;
+    color: var(--off-white);
+    margin-bottom: 0.2rem;
+  }
+
+  .stat-label {
+    font-family: var(--font-mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  /* ── SKILLS ── */
+  #skills { background: var(--carbon); }
+
+  #skills > * { max-width: 1200px; margin-left: auto; margin-right: auto; }
+
+  .skills-wrap {
+    padding: 6rem 3rem;
+  }
+
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1px;
+    border: 1px solid var(--border);
+  }
+
+  .skill-cell {
+    padding: 1.8rem;
+    border-right: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    position: relative;
+    transition: background 0.2s;
+  }
+
+  .skill-cell:hover { background: var(--panel); }
+
+  .skill-icon {
+    width: 28px;
+    height: 28px;
+    margin-bottom: 1rem;
+    opacity: 0.9;
+  }
+
+  .skill-name {
+    font-family: var(--font-display);
+    font-size: 1.3rem;
+    letter-spacing: 0.06em;
+    color: var(--off-white);
+    margin-bottom: 0.4rem;
+  }
+
+  .skill-desc {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    color: var(--mono-dim);
+    letter-spacing: 0.08em;
+    line-height: 1.6;
+  }
+
+  .skill-level {
+    position: absolute;
+    top: 1.8rem;
+    right: 1.8rem;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--red);
+  }
+
+  /* ── PROJECTS ── */
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .project-card {
+    border: 1px solid var(--border);
+    padding: 2rem;
+    background: var(--carbon);
+    position: relative;
+    transition: border-color 0.2s;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .project-card:hover { border-color: var(--border-strong); }
+
+  .project-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: var(--red);
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+
+  .project-card:hover::before { opacity: 1; }
+
+  .project-tag {
+    font-family: var(--font-mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 0.8rem;
+  }
+
+  .project-title {
+    font-family: var(--font-display);
+    font-size: 1.7rem;
+    letter-spacing: 0.04em;
+    color: var(--off-white);
+    margin-bottom: 0.8rem;
+    line-height: 1;
+  }
+
+  .project-desc {
+    font-size: 0.88rem;
+    color: var(--muted);
+    line-height: 1.75;
+    flex: 1;
+    margin-bottom: 1.5rem;
+  }
+
+  .project-tech {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .tech-pill {
+    font-family: var(--font-mono);
+    font-size: 0.58rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+    border: 1px solid var(--border);
+    padding: 0.25rem 0.6rem;
+  }
+
+  /* ── EXPERIENCE / TIMELINE ── */
+  .timeline {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .timeline-item {
+    display: grid;
+    grid-template-columns: 180px 1px 1fr;
+    gap: 0 2rem;
+    padding-bottom: 3rem;
+  }
+
+  .timeline-date {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.16em;
+    color: var(--mono-dim);
+    padding-top: 0.1rem;
+    text-align: right;
+  }
+
+  .timeline-line {
+    position: relative;
+    background: var(--border-strong);
+  }
+
+  .timeline-line::before {
+    content: '';
+    position: absolute;
+    top: 6px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--red);
+  }
+
+  .timeline-body {}
+
+  .timeline-role {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    letter-spacing: 0.05em;
+    color: var(--off-white);
+    margin-bottom: 0.2rem;
+    line-height: 1;
+  }
+
+  .timeline-company {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    color: var(--muted);
+    margin-bottom: 0.8rem;
+  }
+
+  .timeline-text {
+    font-size: 0.9rem;
+    color: #888880;
+    line-height: 1.8;
+  }
+
+  /* ── CONTACT ── */
+  #contact {
+    background: var(--carbon);
+  }
+
+  .contact-wrap {
+    padding: 6rem 3rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    align-items: start;
+  }
+
+  .contact-headline {
+    font-family: var(--font-display);
+    font-size: clamp(3rem, 6vw, 5.5rem);
+    letter-spacing: 0.04em;
+    line-height: 0.95;
+    color: var(--off-white);
+    margin-bottom: 1.5rem;
+  }
+
+  .contact-sub {
+    font-size: 0.92rem;
+    color: var(--muted);
+    line-height: 1.8;
+    margin-bottom: 2.5rem;
+  }
+
+  .contact-links {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .contact-link {
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 1rem;
+    transition: color 0.2s;
+  }
+
+  .contact-link:hover { color: var(--off-white); }
+
+  .contact-icon {
+    width: 16px;
+    height: 16px;
+    opacity: 0.5;
+  }
+
+  .contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+  }
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+
+  .form-label {
+    font-family: var(--font-mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--mono-dim);
+  }
+
+  .form-input, .form-textarea {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    color: var(--off-white);
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    padding: 0.85rem 1rem;
+    outline: none;
+    resize: none;
+    transition: border-color 0.2s;
+  }
+
+  .form-input:focus, .form-textarea:focus {
+    border-color: var(--red);
+  }
+
+  .form-textarea { min-height: 120px; }
+
+  .form-submit {
+    align-self: flex-start;
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--off-white);
+    background: transparent;
+    border: 1px solid var(--border-strong);
+    padding: 0.85rem 2rem;
+    cursor: crosshair;
+    transition: border-color 0.2s, background 0.2s;
+  }
+
+  .form-submit:hover {
+    border-color: var(--red);
+    background: var(--red-dim);
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    padding: 2rem 3rem;
+    border-top: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .footer-copy {
+    font-family: var(--font-mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.16em;
+    color: var(--mono-dim);
+  }
+
+  .footer-back {
+    font-family: var(--font-mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--mono-dim);
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 2px;
+    transition: color 0.2s;
+    cursor: pointer;
+  }
+
+  .footer-back:hover { color: var(--off-white); }
+
+  /* ── SECTION WRAPPERS FOR FULL-BG ── */
+  .section-bg-carbon { background: var(--carbon); }
+
+  /* ── SCROLL INDICATOR ── */
+  .scroll-hint {
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.4rem;
+    opacity: 0.4;
+  }
+
+  .scroll-hint span {
+    font-family: var(--font-mono);
+    font-size: 0.55rem;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+  }
+
+  .scroll-line {
+    width: 1px;
+    height: 40px;
+    background: var(--off-white);
+    animation: scrollDrop 1.8s ease-in-out infinite;
+  }
+
+  @keyframes scrollDrop {
+    0% { transform: scaleY(0); transform-origin: top; opacity: 0; }
+    40% { transform: scaleY(1); transform-origin: top; opacity: 1; }
+    60% { transform: scaleY(1); transform-origin: bottom; opacity: 1; }
+    100% { transform: scaleY(0); transform-origin: bottom; opacity: 0; }
+  }
+
+  /* ── SVG ICONS (inline, supercar-themed) ── */
+  svg.icon { display: inline-block; vertical-align: middle; }
+
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">Y<span>.</span>NAME</div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div id="canvas-wrap">
+    <canvas id="three-canvas"></canvas>
+  </div>
+  <div class="hero-overlay"></div>
+
+  <div class="hero-content">
+    <p class="hero-eyebrow">// Portfolio — v1.0</p>
+    <h1 class="hero-name">YOUR<br>NAME</h1>
+    <p class="hero-tagline">A short, punchy tagline about what you do. Keep it precise, like a gear change.</p>
+    <div style="display:flex;gap:1rem;align-items:center;flex-wrap:wrap;">
+      <a href="#about" class="hero-cta">
+        <span>Explore</span>
+        <span class="hero-cta-arrow">↓</span>
+      </a>
+      <a href="https://sketchfab.com/models/e4d1f94542744e31924954920af3c458" target="_blank" class="hero-cta hero-cta-ghost">
+        <span>View F1 3D Model</span>
+        <span class="hero-cta-arrow">↗</span>
+      </a>
+    </div>
+  </div>
+
+  <div class="hero-specs">
+    <div class="spec-item">
+      <span class="spec-label">Role</span>
+      <span class="spec-value">Dev</span>
+    </div>
+    <div class="spec-item">
+      <span class="spec-label">Base</span>
+      <span class="spec-value">PKT</span>
+    </div>
+    <div class="spec-item">
+      <span class="spec-label">Status</span>
+      <span class="spec-value">Open</span>
+    </div>
+  </div>
+
+  <div class="scroll-hint">
+    <span>Scroll</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<div class="full-bleed-divider"></div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-header">
+    <span class="section-number">01 / 04</span>
+    <div>
+      <span class="redline"></span>
+      <h2 class="section-title">About</h2>
+    </div>
+  </div>
+  <div class="about-grid">
+    <div class="about-bio">
+      <p>This is where your bio goes. Write two to three paragraphs about yourself — who you are, how you got into your field, and what drives you. Keep it human, not corporate.</p>
+      <p>You can talk about your background, your philosophy toward work, or what excites you about your craft. Think of it as the cockpit view: the controls you know, the road you've taken.</p>
+      <p>A third paragraph can touch on interests outside of work — something personal that makes you memorable. You love supercars, for instance. That belongs here.</p>
+    </div>
+    <div class="about-sidebar">
+      <div class="stat-block">
+        <div class="stat-num">00+</div>
+        <div class="stat-label">Years of experience</div>
+      </div>
+      <div class="stat-block">
+        <div class="stat-num">00+</div>
+        <div class="stat-label">Projects shipped</div>
+      </div>
+      <div class="stat-block">
+        <div class="stat-num">00+</div>
+        <div class="stat-label">Clients worked with</div>
+      </div>
+      <div class="stat-block">
+        <div class="stat-num">00</div>
+        <div class="stat-label">Dream cars on the list</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="full-bleed-divider"></div>
+
+<!-- SKILLS -->
+<div class="section-bg-carbon">
+<div class="skills-wrap">
+  <section id="skills" style="padding-top: 0; padding-bottom: 0;">
+    <div class="section-header">
+      <span class="section-number">02 / 04</span>
+      <div>
+        <span class="redline"></span>
+        <h2 class="section-title">Skills</h2>
+      </div>
+    </div>
+    <div class="skills-grid">
+
+      <div class="skill-cell">
+        <div class="skill-level"></div>
+        <!-- Icon: terminal / code -->
+        <svg class="skill-icon" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <polyline points="6,10 2,14 6,18" stroke="#c0392b" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <polyline points="22,10 26,14 22,18" stroke="#c0392b" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <line x1="16" y1="8" x2="12" y2="20" stroke="#888880" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+        <div class="skill-name">Frontend</div>
+        <div class="skill-desc">Skill · Framework · Tool</div>
+      </div>
+
+      <div class="skill-cell">
+        <div class="skill-level"></div>
+        <!-- Icon: server/backend -->
+        <svg class="skill-icon" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="3" y="5" width="22" height="6" rx="1" stroke="#888880" stroke-width="1.5"/>
+          <rect x="3" y="14" width="22" height="6" rx="1" stroke="#888880" stroke-width="1.5"/>
+          <circle cx="21" cy="8" r="1.2" fill="#c0392b"/>
+          <circle cx="21" cy="17" r="1.2" fill="#c0392b"/>
+        </svg>
+        <div class="skill-name">Backend</div>
+        <div class="skill-desc">Language · Runtime · DB</div>
+      </div>
+
+      <div class="skill-cell">
+        <div class="skill-level"></div>
+        <!-- Icon: cloud -->
+        <svg class="skill-icon" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M8 20a5 5 0 0 1 0-10 6 6 0 0 1 11.8-1A4.5 4.5 0 0 1 20 18" stroke="#888880" stroke-width="1.5" stroke-linecap="round"/>
+          <path d="M14 20v-6M11 17l3-3 3 3" stroke="#c0392b" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <div class="skill-name">DevOps</div>
+        <div class="skill-desc">Cloud · CI/CD · Containers</div>
+      </div>
+
+      <div class="skill-cell">
+        <div class="skill-level"></div>
+        <!-- Icon: design tool -->
+        <svg class="skill-icon" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="14" cy="14" r="4" stroke="#888880" stroke-width="1.5"/>
+          <path d="M14 4v4M14 20v4M4 14h4M20 14h4" stroke="#888880" stroke-width="1.5" stroke-linecap="round"/>
+          <circle cx="14" cy="14" r="1.5" fill="#c0392b"/>
+        </svg>
+        <div class="skill-name">Design</div>
+        <div class="skill-desc">UI · UX · Prototyping</div>
+      </div>
+
+      <div class="skill-cell">
+        <div class="skill-level"></div>
+        <!-- Icon: data -->
+        <svg class="skill-icon" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="4" y="16" width="4" height="8" rx="0.5" fill="#c0392b" opacity="0.7"/>
+          <rect x="10" y="11" width="4" height="13" rx="0.5" stroke="#888880" stroke-width="1.5"/>
+          <rect x="16" y="6" width="4" height="18" rx="0.5" stroke="#888880" stroke-width="1.5"/>
+        </svg>
+        <div class="skill-name">Data</div>
+        <div class="skill-desc">Analytics · Pipelines · Viz</div>
+      </div>
+
+      <div class="skill-cell">
+        <div class="skill-level"></div>
+        <!-- Icon: mobile -->
+        <svg class="skill-icon" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="8" y="3" width="12" height="22" rx="2" stroke="#888880" stroke-width="1.5"/>
+          <circle cx="14" cy="22" r="1" fill="#c0392b"/>
+          <line x1="11" y1="7" x2="17" y2="7" stroke="#888880" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+        <div class="skill-name">Mobile</div>
+        <div class="skill-desc">iOS · Android · Cross-platform</div>
+      </div>
+
+    </div>
+  </section>
+</div>
+</div>
+
+<div class="full-bleed-divider"></div>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="section-header">
+    <span class="section-number">03 / 04</span>
+    <div>
+      <span class="redline"></span>
+      <h2 class="section-title">Projects</h2>
+    </div>
+  </div>
+  <div class="projects-grid">
+
+    <div class="project-card">
+      <div class="project-tag">// Project 01</div>
+      <div class="project-title">Project Name</div>
+      <p class="project-desc">A one or two line description of what this project is, what problem it solved, and who it was built for. Keep it specific and outcome-driven.</p>
+      <div class="project-tech">
+        <span class="tech-pill">React</span>
+        <span class="tech-pill">Node</span>
+        <span class="tech-pill">Postgres</span>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-tag">// Project 02</div>
+      <div class="project-title">Project Name</div>
+      <p class="project-desc">A one or two line description of what this project is, what problem it solved, and who it was built for. Keep it specific and outcome-driven.</p>
+      <div class="project-tech">
+        <span class="tech-pill">Python</span>
+        <span class="tech-pill">FastAPI</span>
+        <span class="tech-pill">Redis</span>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-tag">// Project 03</div>
+      <div class="project-title">Project Name</div>
+      <p class="project-desc">A one or two line description of what this project is, what problem it solved, and who it was built for. Keep it specific and outcome-driven.</p>
+      <div class="project-tech">
+        <span class="tech-pill">Three.js</span>
+        <span class="tech-pill">WebGL</span>
+        <span class="tech-pill">GLSL</span>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-tag">// Project 04</div>
+      <div class="project-title">Project Name</div>
+      <p class="project-desc">A one or two line description of what this project is, what problem it solved, and who it was built for. Keep it specific and outcome-driven.</p>
+      <div class="project-tech">
+        <span class="tech-pill">TypeScript</span>
+        <span class="tech-pill">Next.js</span>
+        <span class="tech-pill">Tailwind</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<div class="full-bleed-divider"></div>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="section-header">
+    <span class="section-number">04 / 04</span>
+    <div>
+      <span class="redline"></span>
+      <h2 class="section-title">Experience</h2>
+    </div>
+  </div>
+  <div class="timeline">
+
+    <div class="timeline-item">
+      <div class="timeline-date">2023 — Present</div>
+      <div class="timeline-line"></div>
+      <div class="timeline-body">
+        <div class="timeline-role">Job Title</div>
+        <div class="timeline-company">Company Name · City</div>
+        <p class="timeline-text">One or two sentences about what you did here, what you built or led, and the impact of your work. Keep it sharp.</p>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-date">2021 — 2023</div>
+      <div class="timeline-line"></div>
+      <div class="timeline-body">
+        <div class="timeline-role">Job Title</div>
+        <div class="timeline-company">Company Name · City</div>
+        <p class="timeline-text">One or two sentences about what you did here, what you built or led, and the impact of your work. Keep it sharp.</p>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-date">2019 — 2021</div>
+      <div class="timeline-line"></div>
+      <div class="timeline-body">
+        <div class="timeline-role">Job Title</div>
+        <div class="timeline-company">Company Name · City</div>
+        <p class="timeline-text">One or two sentences about what you did here, what you built or led, and the impact of your work. Keep it sharp.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<div class="full-bleed-divider"></div>
+
+<!-- CONTACT -->
+<div class="section-bg-carbon" id="contact">
+  <div class="contact-wrap">
+    <div>
+      <span class="redline"></span>
+      <h2 class="contact-headline">Let's<br>Talk.</h2>
+      <p class="contact-sub">Whether it's a project, a collab, or just a conversation about engines — the door is open.</p>
+      <div class="contact-links">
+        <a class="contact-link" href="mailto:you@email.com">
+          <!-- Email icon -->
+          <svg class="contact-icon" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="1.5" y="3.5" width="13" height="9" rx="1" stroke="currentColor" stroke-width="1.2"/>
+            <path d="M1.5 5l6.5 4.5L14.5 5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+          </svg>
+          you@email.com
+        </a>
+        <a class="contact-link" href="https://github.com/yourhandle" target="_blank">
+          <!-- GitHub icon -->
+          <svg class="contact-icon" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M8 1.5A6.5 6.5 0 0 0 1.5 8c0 2.86 1.86 5.28 4.44 6.14.32.06.44-.14.44-.3v-1.06c-1.8.39-2.18-.87-2.18-.87-.3-.76-.72-1-.72-1-.59-.4.04-.39.04-.39.65.04 1 .67 1 .67.58 1 1.52.7 1.9.54.06-.42.23-.7.41-.86-1.44-.16-2.96-.72-2.96-3.2 0-.7.25-1.28.67-1.73-.07-.16-.29-.82.06-1.71 0 0 .54-.17 1.78.66A6.1 6.1 0 0 1 8 5.87c.55 0 1.1.07 1.62.22 1.23-.83 1.77-.66 1.77-.66.35.89.13 1.55.06 1.71.42.45.67 1.03.67 1.73 0 2.49-1.52 3.04-2.97 3.2.23.2.44.6.44 1.2v1.79c0 .17.12.37.44.3A6.5 6.5 0 0 0 14.5 8 6.5 6.5 0 0 0 8 1.5Z" fill="currentColor" opacity="0.6"/>
+          </svg>
+          github.com/yourhandle
+        </a>
+        <a class="contact-link" href="https://linkedin.com/in/yourhandle" target="_blank">
+          <!-- LinkedIn icon -->
+          <svg class="contact-icon" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="1.5" y="1.5" width="13" height="13" rx="2" stroke="currentColor" stroke-width="1.2"/>
+            <path d="M4.5 7v4.5M4.5 4.5v.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+            <path d="M7.5 11.5V8.5a1.5 1.5 0 0 1 3 0v3" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+            <path d="M7.5 7v1" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+          </svg>
+          linkedin.com/in/yourhandle
+        </a>
+      </div>
+    </div>
+    <div>
+      <div class="contact-form">
+        <div class="form-group">
+          <label class="form-label">Name</label>
+          <input class="form-input" type="text" placeholder="John Doe" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Email</label>
+          <input class="form-input" type="email" placeholder="john@example.com" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Message</label>
+          <textarea class="form-textarea" placeholder="Tell me about your project…"></textarea>
+        </div>
+        <button class="form-submit">Send Message →</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <span class="footer-copy">© 2025 Your Name — All rights reserved</span>
+  <span class="footer-back" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑ Back to top</span>
+</footer>
+
+<!-- THREE.JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+(function() {
+  const canvas = document.getElementById('three-canvas');
+  const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  renderer.setClearColor(0x000000, 0);
+  renderer.shadowMap.enabled = true;
+
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(45, 1, 0.1, 100);
+  camera.position.set(0, 2.5, 8);
+  camera.lookAt(0, 0, 0);
+
+  function resize() {
+    const w = canvas.parentElement.clientWidth;
+    const h = canvas.parentElement.clientHeight;
+    renderer.setSize(w, h, false);
+    camera.aspect = w / h;
+    camera.updateProjectionMatrix();
+  }
+  resize();
+  window.addEventListener('resize', resize);
+
+  // Lighting
+  scene.add(new THREE.AmbientLight(0xffffff, 0.3));
+  const keyLight = new THREE.DirectionalLight(0xfff0e0, 1.8);
+  keyLight.position.set(5, 6, 4);
+  keyLight.castShadow = true;
+  scene.add(keyLight);
+  const rimLight = new THREE.DirectionalLight(0xc0392b, 0.7);
+  rimLight.position.set(-6, 2, -3);
+  scene.add(rimLight);
+  scene.add(Object.assign(new THREE.DirectionalLight(0x4080ff, 0.25), { position: new THREE.Vector3(0, -2, 5) }));
+
+  // Floor
+  const floor = new THREE.Mesh(new THREE.PlaneGeometry(30, 30), new THREE.MeshStandardMaterial({ color: 0x0d0d0d, roughness: 0.2, metalness: 0.8 }));
+  floor.rotation.x = -Math.PI / 2;
+  floor.position.y = -0.72;
+  floor.receiveShadow = true;
+  scene.add(floor);
+  const grid = new THREE.GridHelper(20, 20, 0x1a1a1a, 0x141414);
+  grid.position.y = -0.71;
+  scene.add(grid);
+
+  // Materials
+  const redMat    = new THREE.MeshStandardMaterial({ color: 0xc0392b, roughness: 0.25, metalness: 0.6 });
+  const darkMat   = new THREE.MeshStandardMaterial({ color: 0x111111, roughness: 0.5,  metalness: 0.4 });
+  const blackMat  = new THREE.MeshStandardMaterial({ color: 0x080808, roughness: 0.1,  metalness: 0.9 });
+  const chromeMat = new THREE.MeshStandardMaterial({ color: 0xd0c8b0, roughness: 0.05, metalness: 1.0 });
+  const glassMat  = new THREE.MeshStandardMaterial({ color: 0x223344, roughness: 0.0,  metalness: 0.2, transparent: true, opacity: 0.6 });
+  const wheelMat  = new THREE.MeshStandardMaterial({ color: 0x1a1a1a, roughness: 0.8,  metalness: 0.2 });
+  const rimMat    = new THREE.MeshStandardMaterial({ color: 0xb0a898, roughness: 0.1,  metalness: 1.0 });
+
+  const group = new THREE.Group();
+  scene.add(group);
+
+  function mesh(geo, mat, opts) {
+    const m = new THREE.Mesh(geo, mat);
+    if (opts) { if (opts.pos) m.position.set(...opts.pos); if (opts.rot) m.rotation.set(...opts.rot); }
+    m.castShadow = true;
+    group.add(m);
+    return m;
+  }
+
+  mesh(new THREE.BoxGeometry(3.8, 0.38, 1.5), redMat, { pos: [0, 0, 0] });
+  mesh(new THREE.BoxGeometry(1.8, 0.42, 1.32), redMat, { pos: [0.1, 0.38, 0] });
+  mesh(new THREE.BoxGeometry(1.55, 0.3, 1.2), glassMat, { pos: [0.05, 0.56, 0] });
+
+  const nose = new THREE.Mesh(new THREE.CylinderGeometry(0.01, 0.55, 0.8, 4), redMat);
+  nose.rotation.set(0, Math.PI / 4, Math.PI / 2);
+  nose.position.set(2.1, -0.06, 0);
+  nose.castShadow = true;
+  group.add(nose);
+
+  mesh(new THREE.BoxGeometry(0.18, 0.22, 1.3), darkMat, { pos: [-1.98, -0.12, 0] });
+  mesh(new THREE.BoxGeometry(0.08, 0.28, 1.5), darkMat, { pos: [-1.85, 0.3, 0] });
+  mesh(new THREE.BoxGeometry(0.5, 0.05, 1.55), blackMat, { pos: [-1.85, 0.45, 0] });
+
+  [-0.78, 0.78].forEach(z => mesh(new THREE.BoxGeometry(3.5, 0.12, 0.15), darkMat, { pos: [0, -0.18, z] }));
+
+  [[1.3,-0.34,0.85],[1.3,-0.34,-0.85],[-1.3,-0.34,0.85],[-1.3,-0.34,-0.85]].forEach(([x,y,z]) => {
+    const tire = new THREE.Mesh(new THREE.CylinderGeometry(0.38, 0.38, 0.28, 24), wheelMat);
+    tire.rotation.x = Math.PI / 2; tire.position.set(x, y, z); tire.castShadow = true; group.add(tire);
+    const rim = new THREE.Mesh(new THREE.CylinderGeometry(0.22, 0.22, 0.3, 12), rimMat);
+    rim.rotation.x = Math.PI / 2; rim.position.set(x, y, z + (z > 0 ? 0.01 : -0.01)); group.add(rim);
+    for (let i = 0; i < 5; i++) {
+      const sp = new THREE.Mesh(new THREE.BoxGeometry(0.06, 0.04, 0.4), rimMat);
+      sp.rotation.set(Math.PI / 2, 0, (i / 5) * Math.PI * 2); sp.position.set(x, y, z); group.add(sp);
+    }
+  });
+
+  [-0.45, 0.45].forEach(z => {
+    const hlMat = new THREE.MeshStandardMaterial({ color: 0xfff8e0, emissive: 0xfff0a0, emissiveIntensity: 0.8, roughness: 0.1, metalness: 0.2 });
+    mesh(new THREE.BoxGeometry(0.08, 0.09, 0.28), hlMat, { pos: [2.12, 0.04, z] });
+    const pl = new THREE.PointLight(0xfff0a0, 0.5, 3);
+    pl.position.set(2.3, 0.04, z); scene.add(pl);
+  });
+
+  const brakeMat = new THREE.MeshStandardMaterial({ color: 0xff2200, emissive: 0xff1100, emissiveIntensity: 1.2, roughness: 0.1 });
+  mesh(new THREE.BoxGeometry(0.06, 0.07, 1.2), brakeMat, { pos: [-1.92, 0.06, 0] });
+  mesh(new THREE.BoxGeometry(3.2, 0.03, 0.04), chromeMat, { pos: [0, 0.1, 0.78] });
+
+  group.position.y = 0.35;
+
+  // Particles
+  const pCount = 60, pPos = new Float32Array(pCount * 3);
+  for (let i = 0; i < pCount; i++) {
+    pPos[i*3]   = (Math.random()-0.5)*14;
+    pPos[i*3+1] = (Math.random()-0.5)*6;
+    pPos[i*3+2] = (Math.random()-0.5)*8-2;
+  }
+  const pGeo = new THREE.BufferGeometry();
+  pGeo.setAttribute('position', new THREE.BufferAttribute(pPos, 3));
+  const particles = new THREE.Points(pGeo, new THREE.PointsMaterial({ color: 0xc0392b, size: 0.04, transparent: true, opacity: 0.5 }));
+  scene.add(particles);
+
+  // Mouse parallax
+  let targetRotY = 0, currentRotY = 0;
+  document.addEventListener('mousemove', e => {
+    targetRotY = ((e.clientX / window.innerWidth) * 2 - 1) * 0.3;
+  });
+
+  const clock = new THREE.Clock();
+  (function animate() {
+    requestAnimationFrame(animate);
+    const t = clock.getElapsedTime();
+    group.position.y = 0.35 + Math.sin(t * 0.6) * 0.05;
+    currentRotY += (targetRotY - currentRotY) * 0.04;
+    group.rotation.y = currentRotY;
+    group.rotation.z = Math.sin(t * 0.4) * 0.012;
+    const pa = particles.geometry.attributes.position.array;
+    for (let i = 0; i < pCount; i++) { pa[i*3] += 0.002; if (pa[i*3] > 7) pa[i*3] = -7; }
+    particles.geometry.attributes.position.needsUpdate = true;
+    renderer.render(scene, camera);
+  })();
+})();
+</script>
+
+</body>
+</html>
